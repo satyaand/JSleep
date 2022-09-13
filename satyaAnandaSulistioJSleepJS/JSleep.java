@@ -1,35 +1,80 @@
 package satyaAnandaSulistioJSleepJS;
 
+// Satya Ananda Sulistio
 
-/**
- * Write a description of class JSleep here.
- *
- * @author (your name)
- * @version (a version number or a date)
- */
 public class JSleep
-{
-    // instance variables - replace the example below with your own
-    private int x;
-
-    /**
-     * Constructor for objects of class JSleep
-     */
-    public JSleep()
+{    
+    public static int getHotelId()
     {
-        // initialise instance variables
-        x = 0;
+        return 0;
     }
-
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
-     */
-    public int sampleMethod(int y)
+    
+    public static String getHotelName()
     {
-        // put your code here
-        return x + y;
+        return "hotel";
+    }
+    
+    public static boolean isDiscount()
+    {
+        return true;
+    }
+    
+    public static float getDiscountPercentage(int beforeDiscount, int afterDiscount)
+    {
+        float percentage = 0.0f;
+        if(beforeDiscount > afterDiscount)
+        {
+            float delta = beforeDiscount - afterDiscount;
+            percentage = (delta / beforeDiscount) * 100.0f;
+        }
+        return percentage;
+    }
+    
+    public static int getDiscountedPrice(int price, float discountPercentage)
+    {
+        int discPrice = 0;  // Harga setelah didiskon
+        if(discountPercentage > 100.0f)
+        {
+            discPrice = 0;
+        }
+        else 
+        {
+            discPrice = price - (int)((discountPercentage / 100.0f) * price);
+        }
+        return discPrice;
+    }
+    
+    public static int getOriginalPrice(int discountedPrice, float discountPercentage)
+    {
+        float originPrice = discountedPrice / ((100.0f-discountPercentage) / 100.0f);
+        return (int) originPrice;
+    }
+    
+    public static float getAdminFeePercentage()
+    {
+        return 0.05f;
+    }
+    
+    public static int getAdminFee(int price)
+    {
+        float adminFee = price * getAdminFeePercentage();
+        return (int) adminFee;
+    }
+    
+    public static int getTotalPrice(int price, int numberOfNight)
+    {
+        return (price * numberOfNight) + (getAdminFee(price * numberOfNight));
+    }
+    
+    public static void main (String[] args)
+    {
+        System.out.printf("Hotel ID: %d\n", getHotelId());
+        System.out.printf("Hotel Name: %s\n", getHotelName());
+        System.out.println("Discount? " + isDiscount());
+        System.out.printf("Discount Percentage: %.1f\n", getDiscountPercentage(1000,900));
+        System.out.printf("Discount Price: %d\n", getDiscountedPrice(1000, 10.0f));
+        System.out.printf("Original Price: %d\n", getOriginalPrice(900,10.0f));
+        System.out.printf("Admin Fee: %d\n", getAdminFee(1000));
+        System.out.printf("Total Price: %d\n", getTotalPrice(10000,2));
     }
 }
