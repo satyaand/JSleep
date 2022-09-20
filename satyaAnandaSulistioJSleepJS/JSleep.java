@@ -1,9 +1,10 @@
 package satyaAnandaSulistioJSleepJS;
 
-// Satya Ananda Sulistio
+// Satya Ananda Sulistio 2106705524
 
 public class JSleep
-{    
+{   
+    /*
     public static int getHotelId()
     {
         return 0;
@@ -66,8 +67,17 @@ public class JSleep
         return (price * numberOfNight) + (getAdminFee(price * numberOfNight));
     }
     
+    */
+   
+   public static Room createRoom(){
+       Price price = new Price(1000, 100);
+       Room room = new Room("hotel", 30, price, Facility.AC);
+       return room;
+   }
+   
     public static void main (String[] args)
     {
+        /*
         System.out.printf("Hotel ID: %d\n", getHotelId());
         System.out.printf("Hotel Name: %s\n", getHotelName());
         System.out.println("Discount? " + isDiscount());
@@ -76,5 +86,12 @@ public class JSleep
         System.out.printf("Original Price: %d\n", getOriginalPrice(900,10.0f));
         System.out.printf("Admin Fee: %d\n", getAdminFee(1000));
         System.out.printf("Total Price: %d\n", getTotalPrice(10000,2));
+        */
+       // Membuat objek test untuk class Room
+       Room test = createRoom();
+       System.out.println(test.name);
+       System.out.println(test.size);
+       System.out.println(test.price.price);
+       System.out.println(test.facility);
     }
 }
