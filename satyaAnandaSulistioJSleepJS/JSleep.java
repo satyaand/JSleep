@@ -66,14 +66,20 @@ public class JSleep
     {
         return (price * numberOfNight) + (getAdminFee(price * numberOfNight));
     }
-    
+     
+    public static Voucher createVoucher(){
+       Price price = new Price(1000, 100);
+       Type type = Type.REBATE;
+       Voucher voucher = new Voucher("Hotel", 101, type, 800, 0.0);
+       return voucher;
+    }
     */
    
-   public static Room createRoom(){
+    public static Room createRoom(){
        Price price = new Price(1000, 100);
        Room room = new Room("hotel", 30, price, Facility.AC);
        return room;
-   }
+    }
    
     public static void main (String[] args)
     {
@@ -88,6 +94,7 @@ public class JSleep
         System.out.printf("Total Price: %d\n", getTotalPrice(10000,2));
         */
        // Membuat objek test untuk class Room
+       
        Room test = createRoom();
        System.out.println(test.name);
        System.out.println(test.size);
