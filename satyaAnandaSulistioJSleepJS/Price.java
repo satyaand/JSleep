@@ -32,7 +32,7 @@ public class Price
         if((double)discount >= 100.0f){
             return 0.0;
         } else {
-            return price - (int)(((double)discount / 100.0f) * price);
+            return price - (((double)discount / 100.0f) * price);
         }
     }
 
