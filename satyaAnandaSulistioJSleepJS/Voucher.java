@@ -5,7 +5,7 @@ package satyaAnandaSulistioJSleepJS;
  * @version 22 Sep 2022
  */
 
-public class Voucher
+public class Voucher extends Serializable
 {
     // instance variables - replace the example below with your own
     public Type type;
@@ -18,15 +18,16 @@ public class Voucher
     /**
      * Constructor for objects of class Voucher
      */
-    public Voucher(String name, int code, Type type, double minimum, double cut)
+    public Voucher(int id, String name, int code, Type type, boolean used, double minimum, double cut)
     {
         // initialise instance variables
+        super(id);
         this.name = name;
         this.code = code;
         this.type = type;
         this.minimum = minimum;
         this.cut = cut;
-        this.used = false;
+        this.used = used;
     }
 
     public boolean isUsed(){
@@ -54,36 +55,4 @@ public class Voucher
         }
         return price.price - cut;
     }
-    
-    /* TEST RUNNING CASES
-    public static Voucher createVoucher(){
-       Type type = Type.DISCOUNT;
-       Voucher voucher = new Voucher("Hotel", 101, type, 800, 0.0);
-       return voucher;
-    }
-    
-    public static void main(String[] args){
-        // Initialize objek tipe Price dan Voucher
-        Price price = new Price(850, 10);
-        Voucher test = createVoucher();
-        
-        System.out.println(test.type);
-        System.out.println(test.name);
-        System.out.println(test.code);
-        System.out.println(test.minimum);
-        // Cut awal
-        System.out.println(test.cut);
-        // Apakah sudah terpakai?
-        System.out.println(test.isUsed());
-        // Apakah bisa apply?
-        System.out.println(test.canApply(price));
-        System.out.println(test.apply(price));
-        // Test status terpakai setelah apply
-        System.out.println(test.isUsed());
-        // Cek cut setelah terpotong
-        System.out.println(test.cut);
-        // Test eligible untuk apply lagi atau tidak
-        System.out.println(test.canApply(price));
-    }
-    */
 }
