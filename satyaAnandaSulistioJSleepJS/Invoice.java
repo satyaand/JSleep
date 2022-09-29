@@ -4,7 +4,7 @@ package satyaAnandaSulistioJSleepJS;
 /**
  * Write a description of class Invoice here.
  *
- * @author (your name)
+ * @author Satya Ananda Sulistio
  * @version (a version number or a date)
  */
 public class Invoice extends Serializable
@@ -13,7 +13,18 @@ public class Invoice extends Serializable
     public int buyerId;
     public int renterId;
     public String time;
+    public PaymentStatus status;
+    public RoomRating rating;
 
+    public enum PaymentStatus
+    {
+        FAILED, WAITING, SUCCESS
+    }
+    
+    public enum RoomRating
+    {
+        NONE, BAD, NEUTRAL, GOOD
+    }
     /**
      * Constructor for objects of class Invoice
      */
@@ -24,6 +35,9 @@ public class Invoice extends Serializable
         this.buyerId = buyerId;
         this.renterId = renterId;
         this.time = time;
+        status = PaymentStatus.WAITING;
+        rating = RoomRating.NONE;
+        
     }
     
      public Invoice(int id, Account buyer, Renter renter, String time)
@@ -33,6 +47,8 @@ public class Invoice extends Serializable
         this.buyerId = buyer.id;
         this.renterId = renter.id;
         this.time = time;
+        status = PaymentStatus.WAITING;
+        rating = RoomRating.NONE;
     }
 
     /**

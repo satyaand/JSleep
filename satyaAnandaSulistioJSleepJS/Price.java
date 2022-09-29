@@ -23,6 +23,10 @@ public class Price
         this.discount = discount;
     }
     
+    public String toString(){
+        return("Price: " + price + " Discount: " + discount);
+    }
+    
     /*
     public Price(double price, int discount)
     {
