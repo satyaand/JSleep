@@ -1,6 +1,6 @@
 package satyaAnandaSulistioJSleepJS;
 
-public class Room
+public class Room extends Serializable
 {
     // instance variables - replace the example below with your own
     public int size;
@@ -11,9 +11,10 @@ public class Room
     /**
      * Constructor for objects of class Room
      */
-    public Room(String name, int size, Price price, Facility facility)
+    public Room(int id, String name, int size, Price price, Facility facility)
     {
         // initialise instance variables
+        super(id);
         this.name = name;
         this.size = size;
         this.price = price;
