@@ -1,4 +1,5 @@
 package satyaAnandaSulistioJSleepJS;
+import java.util.*;
 
 
 /**
@@ -12,7 +13,7 @@ public class Invoice extends Serializable
     // instance variables - replace the example below with your own
     public int buyerId;
     public int renterId;
-    public String time;
+    public Calendar time;
     public PaymentStatus status;
     public RoomRating rating;
 
@@ -28,25 +29,24 @@ public class Invoice extends Serializable
     /**
      * Constructor for objects of class Invoice
      */
-    protected Invoice(int id, int buyerId, int renterId, String time)
+    protected Invoice(int id, int buyerId, int renterId)
     {
         // initialise instance variables
         super(id);
+        time = Calendar.getInstance();
         this.buyerId = buyerId;
         this.renterId = renterId;
-        this.time = time;
         status = PaymentStatus.WAITING;
         rating = RoomRating.NONE;
-        
     }
     
-     public Invoice(int id, Account buyer, Renter renter, String time)
+     public Invoice(int id, Account buyer, Renter renter)
     {
         // initialise instance variables
         super(id);
+        time = Calendar.getInstance();
         this.buyerId = buyer.id;
         this.renterId = renter.id;
-        this.time = time;
         status = PaymentStatus.WAITING;
         rating = RoomRating.NONE;
     }
@@ -60,7 +60,7 @@ public class Invoice extends Serializable
     public String print()
     {
         // put your code here
-        String buffer = "buyerId: " + buyerId + " renterId: "+ renterId + " time: " + time;  
+        String buffer = "buyerId: " + buyerId + " renterId: "+ renterId + " time: " + time.getTime();  
         return buffer;
     }
 }

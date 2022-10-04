@@ -8,7 +8,7 @@ package satyaAnandaSulistioJSleepJS;
  * @version (a version number or a date)
  */
 
-public class Account extends Serializable
+public class Account extends Serializable implements FileParser
 {
     // instance variables
     public String name;
@@ -27,5 +27,15 @@ public class Account extends Serializable
     
     public String toString(){
         return ("Name: " + name + " Email: " + email + " Password: " + password);
+    }
+    
+    @Override
+    public boolean read(String s){
+        return false;
+    }
+    
+    @Override
+    public Object write(){
+        return null;
     }
 }

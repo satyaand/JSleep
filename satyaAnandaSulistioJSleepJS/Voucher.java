@@ -5,7 +5,7 @@ package satyaAnandaSulistioJSleepJS;
  * @version 22 Sep 2022
  */
 
-public class Voucher extends Serializable
+public class Voucher extends Serializable implements FileParser
 {
     // instance variables - replace the example below with your own
     public Type type;
@@ -54,5 +54,15 @@ public class Voucher extends Serializable
             cut = (cut / 100.0) * price.price;
         }
         return price.price - cut;
+    }
+    
+    @Override
+    public boolean read(String s){
+        return false;
+    }
+    
+    @Override
+    public Object write(){
+        return null;
     }
 }

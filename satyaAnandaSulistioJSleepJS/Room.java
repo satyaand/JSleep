@@ -1,6 +1,6 @@
 package satyaAnandaSulistioJSleepJS;
 
-public class Room extends Serializable
+public class Room extends Serializable implements FileParser
 {
     // instance variables - replace the example below with your own
     public int size;
@@ -29,5 +29,15 @@ public class Room extends Serializable
     
     public String toString(){
         return ("Size: " + size + " Name: " + name + " Facility: " + facility + " Price: " + price + " Address: " + address + " Bed Type: " + bedType + " City: " + city);
+    }
+    
+    @Override
+    public boolean read(String s){
+        return false;
+    }
+    
+    @Override
+    public Object write(){
+        return null;
     }
 }

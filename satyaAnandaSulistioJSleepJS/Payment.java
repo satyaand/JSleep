@@ -1,5 +1,6 @@
 package satyaAnandaSulistioJSleepJS;
-
+import java.util.*;
+import java.text.*;
 
 /**
  * Write a description of class Payment here.
@@ -10,27 +11,35 @@ package satyaAnandaSulistioJSleepJS;
 public class Payment extends Invoice
 {
     // instance variables - replace the example below with your own
-    public String to;
-    public String from;
+    public Calendar to;
+    public Calendar from;
     private int roomId;
 
     /**
      * Constructor for objects of class Payment
      */
-    public Payment(int id, int buyerId, int renterId, String time, int roomId, String from, String to){
-        super(id, buyerId, renterId, time);
+    public Payment(int id, int buyerId, int renterId, int roomId){
+        super(id, buyerId, renterId);
+        from = Calendar.getInstance();
+        to = Calendar.getInstance();
+        to.add(Calendar.DATE, 2);
         this.roomId = roomId;
-        this.from = from;
-        this.to = to;
     }
     
-    public Payment(int id, Account buyer, Renter renter, String time, int roomId, String from, String to){
-        super(id, buyer, renter, time);
+    public Payment(int id, Account buyer, Renter renter, int roomId){
+        super(id, buyer, renter);
         this.roomId = roomId;
-        this.from = from;
-        this.to = to;
     }
 
+    public String getTime(){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy");
+        return ("Formatted Date = " + sdf.format(super.time.getTime()));
+    }
+    
+    public String getDuration(){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy");
+        return (sdf.format(from.getTime()) + " - " + sdf.format(to.getTime()));
+    }
     /**
      * An example of a method - replace this comment with your own
      *
