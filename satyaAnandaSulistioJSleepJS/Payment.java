@@ -28,6 +28,9 @@ public class Payment extends Invoice
     
     public Payment(int id, Account buyer, Renter renter, int roomId){
         super(id, buyer, renter);
+        from = Calendar.getInstance();
+        to = Calendar.getInstance();
+        to.add(Calendar.DATE, 2);
         this.roomId = roomId;
     }
 
