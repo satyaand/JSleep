@@ -11,26 +11,24 @@ import java.text.*;
 public class Payment extends Invoice
 {
     // instance variables - replace the example below with your own
-    public Calendar to;
-    public Calendar from;
+    public Date to;
+    public Date from;
     private int roomId;
 
     /**
      * Constructor for objects of class Payment
      */
-    public Payment(int id, int buyerId, int renterId, int roomId){
+    public Payment(int id, int buyerId, int renterId, int roomId, Date from, Date to){
         super(id, buyerId, renterId);
-        from = Calendar.getInstance();
-        to = Calendar.getInstance();
-        to.add(Calendar.DATE, 2);
+        this.from = from;
+        this.to = to;
         this.roomId = roomId;
     }
     
-    public Payment(int id, Account buyer, Renter renter, int roomId){
+    public Payment(int id, Account buyer, Renter renter, int roomId, Date from, Date to){
         super(id, buyer, renter);
-        from = Calendar.getInstance();
-        to = Calendar.getInstance();
-        to.add(Calendar.DATE, 2);
+        this.from = from;
+        this.to = to;
         this.roomId = roomId;
     }
 
@@ -39,10 +37,27 @@ public class Payment extends Invoice
         return ("Formatted Date = " + sdf.format(super.time.getTime()));
     }
     
-    public String getDuration(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy");
-        return (sdf.format(from.getTime()) + " - " + sdf.format(to.getTime()));
+    public static boolean makeBooking(Date from, Date to, Room room){
+        boolean reserved = false;
+        int duration;
+        Date dateTemp = from;
+        Calendar convertFrom = Calendar.getInstance();
+        
+        if(availability(from, to, room) == true){
+            duration = to.compareTo(from);
+            for(int i = 0; i < duration; i++){
+                convertFrom.setTime(dateTemp);
+                convertFrom.add(Calendar.DATE, 1);
+                dateTemp = convertFrom.getTime();
+                room.booked.add(dateTemp);
+            }
+            reserved = true;
+        } else {
+            reserved = false;
+        }
+        return reserved;
     }
+    
     /**
      * An example of a method - replace this comment with your own
      *
@@ -57,5 +72,27 @@ public class Payment extends Invoice
     
     public int getRoomId(){
         return roomId;
+    }
+    
+    public static boolean availability(Date from, Date to, Room room){
+        int comparatorFrom = 0;
+        int comparatorTo = 0;
+        
+        if(to.compareTo(from) < 0){
+            return false;
+        }
+        
+        for(int i = 0; i < room.booked.size(); i++){
+            comparatorFrom = from.compareTo(room.booked.get(i));
+            if(comparatorFrom == 0){
+                for(int j = i; j < room.booked.size(); j++){
+                    comparatorTo = to.compareTo(room.booked.get(j));
+                    if(comparatorTo == 0){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 }

@@ -13,18 +13,18 @@ public class Invoice extends Serializable
     // instance variables - replace the example below with your own
     public int buyerId;
     public int renterId;
-    public Calendar time;
+    public Date time;
     public PaymentStatus status;
     public RoomRating rating;
 
     public enum PaymentStatus
     {
-        FAILED, WAITING, SUCCESS
+        WAITING, SUCCESS, FAILED
     }
     
     public enum RoomRating
     {
-        NONE, BAD, NEUTRAL, GOOD
+        BAD, NEUTRAL, GOOD, NONE
     }
     /**
      * Constructor for objects of class Invoice
@@ -33,7 +33,7 @@ public class Invoice extends Serializable
     {
         // initialise instance variables
         super(id);
-        time = Calendar.getInstance();
+        time = new Date();
         this.buyerId = buyerId;
         this.renterId = renterId;
         status = PaymentStatus.WAITING;
@@ -44,7 +44,7 @@ public class Invoice extends Serializable
     {
         // initialise instance variables
         super(id);
-        time = Calendar.getInstance();
+        time = new Date();
         this.buyerId = buyer.id;
         this.renterId = renter.id;
         status = PaymentStatus.WAITING;

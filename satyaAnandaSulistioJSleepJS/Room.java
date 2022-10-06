@@ -1,4 +1,5 @@
 package satyaAnandaSulistioJSleepJS;
+import java.util.*;
 
 public class Room extends Serializable implements FileParser
 {
@@ -10,6 +11,7 @@ public class Room extends Serializable implements FileParser
     public String address;
     public BedType bedType;
     public City city;
+    public ArrayList<Date> booked;
 
     /**
      * Constructor for objects of class Room
@@ -25,6 +27,7 @@ public class Room extends Serializable implements FileParser
         this.city = city;
         this.address = address;
         this.bedType = BedType.SINGLE;
+        booked = new ArrayList<Date>();
     }
     
     public String toString(){
