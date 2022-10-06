@@ -46,10 +46,10 @@ public class Payment extends Invoice
         if(availability(from, to, room) == true){
             duration = to.compareTo(from);
             for(int i = 0; i < duration; i++){
+                room.booked.add(dateTemp);
                 convertFrom.setTime(dateTemp);
                 convertFrom.add(Calendar.DATE, 1);
                 dateTemp = convertFrom.getTime();
-                room.booked.add(dateTemp);
             }
             reserved = true;
         } else {
@@ -82,7 +82,7 @@ public class Payment extends Invoice
             return false;
         }
         
-        for(int i = 0; i < room.booked.size(); i++){
+        for(int i = 0; i < room.booked.size() - 1; i++){
             comparatorFrom = from.compareTo(room.booked.get(i));
             if(comparatorFrom == 0){
                 for(int j = i; j < room.booked.size(); j++){
