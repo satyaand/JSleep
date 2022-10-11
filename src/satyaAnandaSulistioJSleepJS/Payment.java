@@ -18,15 +18,15 @@ public class Payment extends Invoice
     /**
      * Constructor for objects of class Payment
      */
-    public Payment(int id, int buyerId, int renterId, int roomId, Date from, Date to){
-        super(id, buyerId, renterId);
+    public Payment(int buyerId, int renterId, int roomId, Date from, Date to){
+        super(buyerId, renterId);
         this.from = from;
         this.to = to;
         this.roomId = roomId;
     }
     
-    public Payment(int id, Account buyer, Renter renter, int roomId, Date from, Date to){
-        super(id, buyer, renter);
+    public Payment(Account buyer, Renter renter, int roomId, Date from, Date to){
+        super(buyer, renter);
         this.from = from;
         this.to = to;
         this.roomId = roomId;
@@ -43,7 +43,7 @@ public class Payment extends Invoice
         int length = dateTemp.getDate();
         
         if(availability(from, to, room)){
-            for(int i = 0; i < length; i++){
+            for(int i = 0; i < length - 1; i++){
                 Date insertedDate = new Date(from.getTime() + (86400000 * i));
                 room.booked.add(insertedDate);
             }

@@ -16,10 +16,9 @@ public class Room extends Serializable implements FileParser
     /**
      * Constructor for objects of class Room
      */
-    public Room(int id, String name, int size, Price price, Facility facility, City city, String address)
+    public Room(String name, int size, Price price, Facility facility, City city, String address)
     {
         // initialise instance variables
-        super(id);
         this.name = name;
         this.size = size;
         this.price = price;
@@ -31,7 +30,7 @@ public class Room extends Serializable implements FileParser
     }
     
     public String toString(){
-        return ("Size: " + size + " Name: " + name + " Facility: " + facility + " Price: " + price + " Address: " + address + " Bed Type: " + bedType + " City: " + city);
+        return ("Size: " + size + " Name: " + name + " Facility: " + facility + " Price: " + price + " Address: " + address + " Bed Type: " + bedType + " City: " + city + " id: " + id);
     }
     
     @Override
