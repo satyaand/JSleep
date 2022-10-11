@@ -39,17 +39,13 @@ public class Payment extends Invoice
     
     public static boolean makeBooking(Date from, Date to, Room room){
         boolean reserved = false;
-        int duration;
-        Date dateTemp = from;
-        Calendar convertFrom = Calendar.getInstance();
+        Date dateTemp = new Date(to.getTime() - from.getTime());
+        int length = dateTemp.getDate();
         
-        if(availability(from, to, room) == true){
-            duration = to.compareTo(from);
-            for(int i = 0; i < duration; i++){
-                room.booked.add(dateTemp);
-                convertFrom.setTime(dateTemp);
-                convertFrom.add(Calendar.DATE, 1);
-                dateTemp = convertFrom.getTime();
+        if(availability(from, to, room)){
+            for(int i = 0; i < length; i++){
+                Date insertedDate = new Date(from.getTime() + (86400000 * i));
+                room.booked.add(insertedDate);
             }
             reserved = true;
         } else {
@@ -75,17 +71,18 @@ public class Payment extends Invoice
     }
     
     public static boolean availability(Date from, Date to, Room room){
+        if(to.before(from)){
+            return false;
+        } else if(room.booked.size() == 0){
+            return true;
+        }
+
         int comparatorFrom = 0;
         int comparatorTo = 0;
-        
-        if(to.compareTo(from) < 0){
-            return false;
-        }
-        
         for(int i = 0; i < room.booked.size() - 1; i++){
             comparatorFrom = from.compareTo(room.booked.get(i));
             if(comparatorFrom == 0){
-                for(int j = i; j < room.booked.size(); j++){
+                for(int j = i; j < room.booked.size() - 1; j++){
                     comparatorTo = to.compareTo(room.booked.get(j));
                     if(comparatorTo == 0){
                         return false;
@@ -93,6 +90,6 @@ public class Payment extends Invoice
                 }
             }
         }
-        return true;
+        return false;
     }
 }
