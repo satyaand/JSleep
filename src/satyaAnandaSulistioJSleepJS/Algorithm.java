@@ -66,7 +66,10 @@ public class Algorithm {
     public static <T> int count(Iterator<T> iterator, Predicate<T> pred){
         int counter = 0;
         while(iterator.hasNext()){
-            ++counter;
+            T tester = iterator.next();
+            if(pred.predicate(tester)){
+                ++counter;
+            }
         }
         return counter;
     }
@@ -107,5 +110,69 @@ public class Algorithm {
         return null;
     }
 
+    public static <T> List<T> collect(T[] array, T value){
+        final Iterator<T> it = Arrays.stream(array).iterator();
+        return collect(it, value);
+    }
+
+    public static <T> List<T> collect(Iterable<T> iterable, T value){
+        final Iterator<T> it = iterable.iterator();
+        return collect(it, value);
+    }
+
+    public static <T> List<T> collect(Iterator<T> iterator, T value){
+        final Predicate<T> pred = value::equals;
+        return collect(iterator, pred);
+    }
+
+    public static <T> List<T> collect(T[] array, Predicate<T> pred){
+        final Iterator<T> it = Arrays.stream(array).iterator();
+        return collect(it, pred);
+    }
+
+    public static <T> List<T> collect(Iterable<T> iterable, Predicate<T> pred){
+        final Iterator<T> it = iterable.iterator();
+        return collect(it, pred);
+    }
+
+    public static <T> List<T> collect(Iterator<T> iterator, Predicate<T> pred){
+        List<T> returningCol = new ArrayList<T>();
+        while(iterator.hasNext()){
+            T toBeAdded = iterator.next();
+            if(pred.predicate(toBeAdded)){
+                returningCol.add(toBeAdded);
+            }
+        }
+        return returningCol;
+    }
+
+    // New
+    public static <T> List<T> paginate(T[] array, int page, int pageSize, Predicate<T> pred){
+        final Iterator<T> it = Arrays.stream(array).iterator();
+        return paginate(it, page, pageSize, pred);
+    }
+
+    public static <T> List<T> paginate(Iterator<T> iterator, int page, int pageSize, Predicate<T> pred){
+        List<T> showList = new ArrayList<T>();
+        int pageNumberBuffer = pageSize * page;
+        while(iterator.hasNext()){
+            for(int i = 0; i < pageSize - 1; i++){
+                T toBeAdded = iterator.next();
+                while(pageNumberBuffer-1 > 0){
+                    toBeAdded = iterator.next();
+                    pageNumberBuffer--;
+                }
+                if(pred.predicate(toBeAdded)){
+                    showList.add(toBeAdded);
+                }
+            }
+        }
+        return showList;
+    }
+
+    public static <T> List<T> paginate(Iterable<T> iterable, int page, int pageSize, Predicate<T> pred){
+        final Iterator<T> it = iterable.iterator();;
+        return paginate(it, page, pageSize, pred);
+    }
 
 }
