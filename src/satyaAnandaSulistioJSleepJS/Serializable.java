@@ -30,11 +30,11 @@ public class Serializable
         id = serialTemp;
     }
 
-    public static <T> Integer setClosingId(Class <T> tClass, int id){
+    public static <T extends Serializable> Integer setClosingId(Class <T> tClass, int id){
         return mapCounter.put(tClass, id);
     }
 
-    public static <T> Integer getClosingId(Class<T> tClass){
+    public static <T extends Serializable> Integer getClosingId(Class<T> tClass){
         return mapCounter.get(tClass);
     }
 

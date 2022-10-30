@@ -6,7 +6,7 @@ import java.io.*;
 /**
  * Write a description of class Validate here.
  *
- * @author (your name)
+ * @author Satya Ananda Sulistio
  * @version (a version number or a date)
  */
 public class Validate
@@ -24,10 +24,12 @@ public class Validate
     }
 
     /**
-     * An example of a method - replace this comment with your own
+     * Adding valid prices to a new array list.
      *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
+     * @param  list  An array of Price type containing list of prices
+     * @param value An integer to check whether the given price is valid
+     * @param less A boolean variable to check whether given price in a list is less than the value
+     * @return    An array list containing validated prices
      */
     public static ArrayList filter(Price[] list, int value, boolean less){
         ArrayList arrTemp = new ArrayList();

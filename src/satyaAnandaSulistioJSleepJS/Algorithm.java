@@ -102,8 +102,7 @@ public class Algorithm {
     public static <T> T find(Iterator<T> iterator, Predicate<T> pred){
         while(iterator.hasNext()){
             T current = iterator.next();
-            Predicate<T> currentPred = current::equals;
-            if(pred.predicate((T) currentPred)){
+            if(pred.predicate(current)){
                 return current;
             }
         }
@@ -171,7 +170,7 @@ public class Algorithm {
     }
 
     public static <T> List<T> paginate(Iterable<T> iterable, int page, int pageSize, Predicate<T> pred){
-        final Iterator<T> it = iterable.iterator();;
+        final Iterator<T> it = iterable.iterator();
         return paginate(it, page, pageSize, pred);
     }
 

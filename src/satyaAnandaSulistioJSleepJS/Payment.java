@@ -1,6 +1,7 @@
 package satyaAnandaSulistioJSleepJS;
 import java.util.*;
 import java.text.*;
+import java.time.LocalDate;
 
 /**
  * Write a description of class Payment here.
@@ -38,27 +39,23 @@ public class Payment extends Invoice
     }
     
     public static boolean makeBooking(Date from, Date to, Room room){
-        boolean reserved = false;
-        Date dateTemp = new Date(to.getTime() - from.getTime());
-        int length = dateTemp.getDate();
-        
         if(availability(from, to, room)){
-            for(int i = 0; i < length - 1; i++){
-                Date insertedDate = new Date(from.getTime() + (86400000 * i));
-                room.booked.add(insertedDate);
+            Calendar start = Calendar.getInstance();
+            start.setTime(from);
+            Calendar end = Calendar.getInstance();
+            end.setTime(to);
+            for(Date date = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), date = start.getTime()){
+                room.booked.add(date);
             }
-            reserved = true;
-        } else {
-            reserved = false;
+            return true;
         }
-        return reserved;
+        return false;
     }
     
     /**
-     * An example of a method - replace this comment with your own
+     * Printing the value of fields in the Payment class
      *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
+     * @return    All the fields value from the class Payment
      */
     public String print()
     {
@@ -71,25 +68,18 @@ public class Payment extends Invoice
     }
     
     public static boolean availability(Date from, Date to, Room room){
-        if(to.before(from)){
+        Calendar start = Calendar.getInstance();
+        start.setTime(from);
+        Calendar end = Calendar.getInstance();
+        end.setTime(to);
+        if(start.after(end) || start.equals(end)){
             return false;
-        } else if(room.booked.size() == 0){
-            return true;
         }
-
-        int comparatorFrom = 0;
-        int comparatorTo = 0;
-        for(int i = 0; i < room.booked.size() - 1; i++){
-            comparatorFrom = from.compareTo(room.booked.get(i));
-            if(comparatorFrom == 0){
-                for(int j = i; j < room.booked.size() - 1; j++){
-                    comparatorTo = to.compareTo(room.booked.get(j));
-                    if(comparatorTo == 0){
-                        return false;
-                    }
-                }
+        for(Date date = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), date = start.getTime()){
+            if(room.booked.contains(date)){
+                return false;
             }
         }
-        return false;
+        return true;
     }
 }
