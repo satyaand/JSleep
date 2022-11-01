@@ -1,10 +1,11 @@
 package satyaAnandaSulistioJSleepJS;
 import java.util.*;
 
-public class Room extends Serializable implements FileParser
+public class Room extends Serializable
 {
     // instance variables - replace the example below with your own
     public int size;
+    public int accountId;
     public String name;
     public Facility facility;
     public Price price;
@@ -16,9 +17,10 @@ public class Room extends Serializable implements FileParser
     /**
      * Constructor for objects of class Room
      */
-    public Room(String name, int size, Price price, Facility facility, City city, String address)
+    public Room(int accountId, String name, int size, Price price, Facility facility, City city, String address)
     {
         // initialise instance variables
+        this.accountId = accountId;
         this.name = name;
         this.size = size;
         this.price = price;
@@ -33,12 +35,12 @@ public class Room extends Serializable implements FileParser
         return ("Size: " + size + " Name: " + name + " Facility: " + facility + " Price: " + price + " Address: " + address + " Bed Type: " + bedType + " City: " + city + " id: " + id);
     }
     
-    @Override
+
     public boolean read(String s){
         return false;
     }
     
-    @Override
+
     public Object write(){
         return null;
     }
