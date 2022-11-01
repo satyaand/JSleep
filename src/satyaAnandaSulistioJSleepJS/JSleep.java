@@ -32,9 +32,9 @@ public class JSleep
         return Algorithm.collect(list, pred);
     }
 
-    public static List<Room> filterByAccount(List<Room> list, int accountId, int page, int pageSize){
-        Predicate<Room> pred = oneRoom -> (oneRoom.price.price >= minPrice) && (oneRoom.price.price <= maxPrice);
-        return Algorithm.collect(list, pred);
+    public static List<Room> filterByAccountId(List<Room> list, int accountId, int page, int pageSize){
+        Predicate<Room> pred = oneRoom -> oneRoom.accountId == accountId;
+        return Algorithm.paginate(list, page, pageSize, pred);
     }
     public static void main (String[] args){
         try {
