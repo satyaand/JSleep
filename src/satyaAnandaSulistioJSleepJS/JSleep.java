@@ -2,8 +2,15 @@ package satyaAnandaSulistioJSleepJS;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.List;
 import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.*;
+import java.util.*;
 
 // Satya Ananda Sulistio 2106705524
 
@@ -38,14 +45,34 @@ public class JSleep
     }
     public static void main (String[] args){
         try {
-            String filepath = "D:\\Java Codes\\JSleep\\JSleep\\src\\json\\randomRoomList.json";
+            String filepath = "src\\json\\account.json";
+            JsonTable<Account> tableAccount = new JsonTable<>(Account.class, filepath);
+            tableAccount.add(new Account("name", "email", "password"));
+            JsonTable.writeJson(tableAccount, filepath);
 
+            Reader reader = Files.newBufferedReader(Paths.get(filepath));
+            List<Account> accounts = new Gson().fromJson(reader, new TypeToken<List<Account>>() {}.getType());
+            accounts.forEach(System.out::println);
+            reader.close();
+            /*
             JsonTable<Room> tableRoom = new JsonTable<>(Room.class, filepath);
-            List<Room> filterTableRoom = filterByCity(tableRoom, "medan", 0, 5);
-            filterTableRoom.forEach(room -> System.out.println(room.toString()));
+            List<Room> filterTableRoomByCity = filterByCity(tableRoom, "jakarta", 0, 5);
+            filterTableRoomByCity.forEach(room -> System.out.println(room.toString()));
+            System.out.println("NEXT");
+            List<Room> filterTableRoomByAccountId = filterByAccountId(tableRoom, 11, 0, 5);
+            filterTableRoomByAccountId.forEach(room -> System.out.println(room.toString()));
+            System.out.println("NEXT");
+            List<Room> filterTableRoomByPrice = filterByPrice(tableRoom, 100000, 250000);
+            filterTableRoomByPrice.forEach(room -> System.out.println(room.toString()));
+             */
         } catch (Throwable t){
             t.printStackTrace();
         }
+
+        for(int i = 0; i < 10; i++){
+            ThreadingObject thread = new ThreadingObject("Thread " + i);
+        }
+
         /*
         Renter testRegex = new Renter("Netlab_", "081234567890", "Jl. Margonda Raya");
         Renter testRegexFail = new Renter("netlab", "081", "Jalan");
@@ -67,16 +94,4 @@ public class JSleep
         }
         */
     }
-
-    /*
-    public static void main (String[] args)
-    {
-        ArrayList<Room> RoomSerialized = new ArrayList<Room>();
-
-        for(int i = 0; i < 5; i++){
-            RoomSerialized.add(i, JSleep.createRoom());
-            System.out.println(RoomSerialized.get(i).toString());
-        }
-    }
-    */
 }

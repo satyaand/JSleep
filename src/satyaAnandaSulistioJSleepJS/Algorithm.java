@@ -153,17 +153,18 @@ public class Algorithm {
 
     public static <T> List<T> paginate(Iterator<T> iterator, int page, int pageSize, Predicate<T> pred){
         List<T> showList = new ArrayList<T>();
-        int pageNumberBuffer = pageSize * page;
-        while(iterator.hasNext()){
-            for(int i = 0; i < pageSize - 1; i++){
-                T toBeAdded = iterator.next();
-                while(pageNumberBuffer-1 > 0){
-                    toBeAdded = iterator.next();
-                    pageNumberBuffer--;
-                }
-                if(pred.predicate(toBeAdded)){
-                    showList.add(toBeAdded);
-                }
+        int numberBuffer = pageSize * (page+1);
+        float pageCounter = pageSize * page;
+        while(iterator.hasNext() && numberBuffer > 0){
+            T current = iterator.next();
+            if(pageCounter > 0){
+                numberBuffer--;
+                pageCounter -= pageSize;
+                continue;
+            }
+            if(pred.predicate(current)){
+                showList.add(current);
+                numberBuffer--;
             }
         }
         return showList;

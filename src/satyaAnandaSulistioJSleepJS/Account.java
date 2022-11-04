@@ -1,5 +1,6 @@
 package satyaAnandaSulistioJSleepJS;
 
+import java.util.regex.*;
 
 /**
  * Write a description of class Account here.
@@ -14,8 +15,9 @@ public class Account extends Serializable
     public String name;
     public String email;
     public String password;
+    public final static String REGEX_EMAIL = "^[a-zA-Z0-9]+@[a-zA-Z]*[.]{1}[a-zA-Z]*$";
+    public final static String REGEX_PASSWORD = "^(?!.*\\s)(?!.*[@#$%^&-+=!_])(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$";
 
-    
     public Account(String name, String email, String password)
     {
         // initialise instance variables
@@ -25,7 +27,7 @@ public class Account extends Serializable
     }
     
     public String toString(){
-        return ("Name: " + name + " Email: " + email + " Password: " + password);
+        return ("Account{name=" + name + ", email=" + email + ", password=" + password + ", id=" + id + "}");
     }
     
 
@@ -33,6 +35,14 @@ public class Account extends Serializable
         return false;
     }
     
+    public boolean validate(){
+        if(email == null || password == null || email.isBlank() || password.isBlank()){
+            return false;
+        }
+        boolean mEmail = Pattern.compile(REGEX_EMAIL).matcher(email).matches();
+        boolean mPass = Pattern.compile(REGEX_PASSWORD).matcher(password).matches();
+        return (mEmail && mPass);
+    }
 
     public Object write(){
         return null;

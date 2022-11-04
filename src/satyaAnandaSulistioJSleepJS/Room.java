@@ -15,7 +15,7 @@ public class Room extends Serializable
     public ArrayList<Date> booked;
 
     /**
-     * Constructor for objects of class Room
+     * Constructor for objects of Room class
      */
     public Room(int accountId, String name, int size, Price price, Facility facility, City city, String address)
     {
