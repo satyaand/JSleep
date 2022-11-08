@@ -1,5 +1,7 @@
 package com.satyaAnandaSulistioJSleepJS;
 
+import com.satyaAnandaSulistioJSleepJS.dbjson.Serializable;
+
 /**
  * @author Satya Ananda Sulistio
  * @version 22 Sep 2022

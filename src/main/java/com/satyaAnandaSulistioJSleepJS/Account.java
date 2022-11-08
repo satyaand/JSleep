@@ -1,5 +1,7 @@
 package com.satyaAnandaSulistioJSleepJS;
 
+import com.satyaAnandaSulistioJSleepJS.dbjson.Serializable;
+
 import java.util.regex.*;
 
 /**
@@ -15,6 +17,8 @@ public class Account extends Serializable
     public String name;
     public String email;
     public String password;
+    public Renter renter;
+    public double balance;
     public final static String REGEX_EMAIL = "^[a-zA-Z0-9]+@[a-zA-Z]*[.]{1}[a-zA-Z]*$";
     public final static String REGEX_PASSWORD = "^(?!.*\\s)(?!.*[@#$%^&-+=!_])(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$";
 
@@ -24,6 +28,8 @@ public class Account extends Serializable
         this.name = name;
         this.email = email;
         this.password = password;
+        this.renter = null;
+        this.balance = 0;
     }
     
     public String toString(){

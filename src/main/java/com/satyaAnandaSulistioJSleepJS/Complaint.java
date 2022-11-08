@@ -1,6 +1,8 @@
 package com.satyaAnandaSulistioJSleepJS;
 
 
+import com.satyaAnandaSulistioJSleepJS.dbjson.Serializable;
+
 /**
  * Write a description of class Complaint here.
  *

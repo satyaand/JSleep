@@ -1,4 +1,4 @@
-package com.satyaAnandaSulistioJSleepJS;
+package com.satyaAnandaSulistioJSleepJS.dbjson;
 
 
 import java.util.HashMap;
@@ -9,7 +9,7 @@ import java.util.HashMap;
  * @author Satya Ananda Sulistio
  * @version (a version number or a date)
  */
-public class Serializable
+public class Serializable implements Comparable<Serializable>
 {
     // instance variables - replace the example below with your own
     public final int id;

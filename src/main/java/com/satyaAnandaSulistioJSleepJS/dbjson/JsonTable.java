@@ -1,4 +1,4 @@
-package com.satyaAnandaSulistioJSleepJS;
+package com.satyaAnandaSulistioJSleepJS.dbjson;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;

@@ -4,6 +4,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
+import com.satyaAnandaSulistioJSleepJS.dbjson.JsonDBEngine;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.io.*;
@@ -41,18 +42,16 @@ public class JSleep
         return Algorithm.paginate(list, page, pageSize, pred);
     }
     public static void main (String[] args){
+        JsonDBEngine.Run(JSleep.class);
         SpringApplication.run(JSleep.class, args);
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> JsonDBEngine.join()));
         /*
         try {
             String filepath = "src\\json\\account.json";
             JsonTable<Account> tableAccount = new JsonTable<>(Account.class, filepath);
             tableAccount.add(new Account("name", "email", "password"));
             JsonTable.writeJson(tableAccount, filepath);
-
-            Reader reader = Files.newBufferedReader(Paths.get(filepath));
-            List<Account> accounts = new Gson().fromJson(reader, new TypeToken<List<Account>>() {}.getType());
-            accounts.forEach(System.out::println);
-            reader.close();
+            tableAccount.forEach(account -> System.out.println(account));
 
             JsonTable<Room> tableRoom = new JsonTable<>(Room.class, filepath);
             List<Room> filterTableRoomByCity = filterByCity(tableRoom, "jakarta", 0, 5);

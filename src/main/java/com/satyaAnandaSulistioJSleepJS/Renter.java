@@ -1,5 +1,7 @@
 package com.satyaAnandaSulistioJSleepJS;
 
+import com.satyaAnandaSulistioJSleepJS.dbjson.Serializable;
+
 import java.util.regex.*;
 
 
