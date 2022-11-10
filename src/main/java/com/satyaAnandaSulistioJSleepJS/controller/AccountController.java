@@ -8,7 +8,9 @@ import com.satyaAnandaSulistioJSleepJS.dbjson.JsonAutowired;
 import com.satyaAnandaSulistioJSleepJS.dbjson.JsonTable;
 import com.satyaAnandaSulistioJSleepJS.dbjson.Serializable;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
+
+import java.security.NoSuchAlgorithmException;
+import java.security.MessageDigest;
 import java.util.regex.Pattern;
 
 // TODO sesuaikan dengan package Anda: package com.netlabJSleepGS.controller;
@@ -36,8 +38,21 @@ public class AccountController implements BasicGetController<Account>
         @RequestParam String password
     )
     {
+        String hashedLoginPass = null;
+        try{
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(password.getBytes());
+            byte[] bytes = md.digest();
+            StringBuilder sb = new StringBuilder();
+            for (byte aByte : bytes) {
+                sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
+            }
+            hashedLoginPass = sb.toString();
+        } catch(NoSuchAlgorithmException e){
+            e.printStackTrace();
+        }
         for(Account run : getJsonTable()){
-            if(run.email.equals(email) && run.password.equals(password)){
+            if(run.email.equals(email) && run.password.equals(hashedLoginPass)){
                 return run;
             }
         }
@@ -51,7 +66,20 @@ public class AccountController implements BasicGetController<Account>
             @RequestParam String password
     )
     {
-        Account newUser = new Account(name, email, password);
+        String hashedPassword = null;
+        try{
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(password.getBytes());
+            byte[] bytes = md.digest();
+            StringBuilder sb = new StringBuilder();
+            for (byte aByte : bytes) {
+                sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
+            }
+            hashedPassword = sb.toString();
+        } catch(NoSuchAlgorithmException e){
+            e.printStackTrace();
+        }
+        Account newUser = new Account(name, email, hashedPassword);
         accountTable.add(newUser);
         if(!name.isBlank() && REGEX_PATTERN_EMAIL.matcher(email).matches() && REGEX_PATTERN_PASSWORD.matcher(password).matches()){
             return newUser;

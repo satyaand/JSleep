@@ -15,7 +15,6 @@ public class Invoice extends Serializable
     // instance variables - replace the example below with your own
     public int buyerId;
     public int renterId;
-    public Date time;
     public PaymentStatus status;
     public RoomRating rating;
 
@@ -34,7 +33,6 @@ public class Invoice extends Serializable
     protected Invoice(int buyerId, int renterId)
     {
         // initialise instance variables
-        time = new Date();
         this.buyerId = buyerId;
         this.renterId = renterId;
         status = PaymentStatus.WAITING;
@@ -44,7 +42,6 @@ public class Invoice extends Serializable
      public Invoice(Account buyer, Renter renter)
     {
         // initialise instance variables
-        time = new Date();
         this.buyerId = buyer.id;
         this.renterId = renter.id;
         status = PaymentStatus.WAITING;
@@ -54,13 +51,11 @@ public class Invoice extends Serializable
     /**
      * An example of a method - replace this comment with your own
      *
-     * param
      * @return    string of fields values
      */
     public String print()
     {
         // put your code here
-        String buffer = "buyerId: " + buyerId + " renterId: "+ renterId + " time: " + time.getTime();  
-        return buffer;
+        return "buyerId: " + buyerId + " renterId: "+ renterId;
     }
 }
