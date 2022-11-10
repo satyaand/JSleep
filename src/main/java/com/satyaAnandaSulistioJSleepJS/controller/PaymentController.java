@@ -3,11 +3,12 @@ package com.satyaAnandaSulistioJSleepJS.controller;
 import com.satyaAnandaSulistioJSleepJS.Payment;
 import com.satyaAnandaSulistioJSleepJS.dbjson.JsonAutowired;
 import com.satyaAnandaSulistioJSleepJS.dbjson.JsonTable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+@RestController
+@RequestMapping("/payment")
 public class PaymentController implements BasicGetController<Payment> {
-    @JsonAutowired(value = Payment.class, filepath = "src/json/account.json")
+    @JsonAutowired(value = Payment.class, filepath = "src/json/payment.json")
     public static JsonTable<Payment> paymentTable;
 
     public JsonTable<Payment> getJsonTable(){
@@ -26,17 +27,17 @@ public class PaymentController implements BasicGetController<Payment> {
     }
 
     @PostMapping("/{id}/accept")
-    public boolean accept(@RequestParam int id){
+    public boolean accept(@PathVariable int id){
         return false;
     }
 
     @PostMapping("/{id}/cancel")
-    public boolean cancel(@RequestParam int id){
+    public boolean cancel(@PathVariable int id){
         return false;
     }
 
     @PostMapping("/{id}/submit")
-    public boolean submit(@RequestParam int id){
+    public boolean submit(@PathVariable int id){
         return false;
     }
 }

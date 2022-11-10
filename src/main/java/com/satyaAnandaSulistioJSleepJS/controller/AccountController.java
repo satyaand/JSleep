@@ -27,7 +27,7 @@ public class AccountController implements BasicGetController<Account>
     final public static Pattern REGEX_PATTERN_EMAIL = Pattern.compile("^[a-zA-Z0-9]+@[a-zA-Z]*[.]{1}[a-zA-Z]*$");
     final public static Pattern REGEX_PATTERN_PASSWORD = Pattern.compile("^(?!.*\\s)(?!.*[@#$%^&-+=!_])(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$");
 
-    @GetMapping("/account")
+    @GetMapping
     String index() { return "account page"; }
 
     @PostMapping("/login")
