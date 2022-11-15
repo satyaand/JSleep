@@ -28,9 +28,9 @@ public class PaymentController implements BasicGetController<Payment> {
         @RequestParam String to
     ) throws ParseException {
         Predicate<Account> accPred = obj -> obj.id == buyerId;
-        Account searchAccCriteria = Algorithm.find((new AccountController()).getJsonTable(), accPred);
+        Account searchAccCriteria = Algorithm.<Account>find(AccountController.accountTable, accPred);
         Predicate<Room> roomPred = obj1 -> obj1.id == roomId;
-        Room searchRoomCriteria = Algorithm.find((new RoomController()).getJsonTable(), roomPred);
+        Room searchRoomCriteria = Algorithm.<Room>find(RoomController.roomTable, roomPred);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date fromDate = sdf.parse(from);
         Date toDate = sdf.parse(to);

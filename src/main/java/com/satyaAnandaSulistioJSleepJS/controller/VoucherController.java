@@ -20,7 +20,8 @@ public class VoucherController implements BasicGetController<Voucher> {
     boolean isUsed(@PathVariable int id){
         Predicate<Voucher> pred = obj -> obj.id == id;
         Voucher searchVoucher = Algorithm.find(getJsonTable(), pred);
-        return searchVoucher.isUsed();
+        if(searchVoucher != null) return searchVoucher.isUsed();
+        return false;
     }
 
     @GetMapping("/{id}/canApply")
@@ -30,24 +31,16 @@ public class VoucherController implements BasicGetController<Voucher> {
     ){
         Predicate<Voucher> pred = obj -> obj.id == id;
         Voucher searchVoucher = Algorithm.find(getJsonTable(), pred);
-        return searchVoucher.canApply(new Price(price));
+        if(searchVoucher != null) return searchVoucher.canApply(new Price(price));
+        return false;
     }
 
     @GetMapping("/getAvailable")
     List<Voucher> getAvailable(
-            @RequestParam int page,
-            @RequestParam int pageSize
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "0") int pageSize
     ){
-        Predicate<Voucher> usable = obj -> !obj.isUsed();
-        int defPage = 0;
-        int defPageSize = 5;
-        if(defPage > page){
-            page = defPage;
-        }
-        if(defPageSize > pageSize){
-            pageSize = defPageSize;
-        }
-        return Algorithm.paginate(getJsonTable(), page, pageSize, usable);
+        return Algorithm.<Voucher>paginate(Algorithm.<Voucher>collect(voucherTable, obj -> !obj.isUsed()), page, pageSize, pred -> true);
     }
 
     @Override
