@@ -106,6 +106,12 @@ public class AccountController implements BasicGetController<Account>
         return null;
     }
 
+    @GetMapping("/{id}")
+    Account getAccount(@PathVariable int id){
+        Predicate<Account> pred = obj -> obj.id == id;
+        return Algorithm.find(getJsonTable(), pred);
+    }
+
     @PostMapping("/{id}/topUp")
     boolean topUp(@PathVariable int id, @RequestParam double balance){
         Predicate<Account> pred = obj -> obj.id == id;
