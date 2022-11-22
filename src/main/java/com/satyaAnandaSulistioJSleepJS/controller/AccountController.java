@@ -66,6 +66,8 @@ public class AccountController implements BasicGetController<Account>
             @RequestParam String password
     )
     {
+        if(Algorithm.<Account>exists(getJsonTable(), obj -> obj.email.equals(email))) return null;
+
         String hashedPassword = null;
         try{
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -79,9 +81,10 @@ public class AccountController implements BasicGetController<Account>
         } catch(NoSuchAlgorithmException e){
             e.printStackTrace();
         }
-        Account newUser = new Account(name, email, hashedPassword);
-        accountTable.add(newUser);
+
         if(!name.isBlank() && REGEX_PATTERN_EMAIL.matcher(email).matches() && REGEX_PATTERN_PASSWORD.matcher(password).matches()){
+            Account newUser = new Account(name, email, hashedPassword);
+            accountTable.add(newUser);
             return newUser;
         } else {
             return null;
