@@ -20,12 +20,12 @@ public class JSleep
         public int population;
         public List<String> listOfStates;
     }
-    */
     public static Room createRoom(){
         Price price = new Price(100000, 0.5);
         Room room = new Room(1, "hotel", 30, price, Facility.AC, City.DEPOK, "Jalan Margonda Raya");
         return room;
     }
+    */
 
     public static List<Room> filterByCity(List<Room> list, String search, int page, int pageSize){
         Predicate<Room> pred = oneRoom -> oneRoom.city == City.valueOf(search.toUpperCase());

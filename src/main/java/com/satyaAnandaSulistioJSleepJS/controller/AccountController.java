@@ -118,7 +118,7 @@ public class AccountController implements BasicGetController<Account>
     @PostMapping("/{id}/topUp")
     boolean topUp(@PathVariable int id, @RequestParam double balance){
         Predicate<Account> pred = obj -> obj.id == id;
-        Account searchAccount = Algorithm.find(getJsonTable(), pred);
+        Account searchAccount = Algorithm.<Account>find(getJsonTable(), pred);
         if(searchAccount != null){
             searchAccount.balance += balance;
             return true;
