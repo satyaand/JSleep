@@ -4,19 +4,32 @@ package com.satyaAnandaSulistioJSleepJS;
 import com.satyaAnandaSulistioJSleepJS.dbjson.Serializable;
 
 /**
- * Write a description of class Complaint here.
+ * This class is an object for complaints reported by guests.
  *
  * @author Satya Ananda Sulistio
  * @version 1.0
  */
 public class Complaint extends Serializable
 {
-    // instance variables - replace the example below with your own
+    /**
+     * This String type field is used to store the description of the complaint.
+     *
+     * @since 1.0
+     */
     public String desc;
+
+    /**
+     * This String type field is used to store the date of the complaint.
+     *
+     * @since 1.0
+     */
     public String date;
 
     /**
      * Constructor for objects of class Complaint
+     *
+     * @param date initializes the date of complaint
+     * @param desc initializes the description of complaint
      */
     public Complaint(String date, String desc)
     {
@@ -26,9 +39,9 @@ public class Complaint extends Serializable
     }
 
     /**
-     * Override default toString method with the following format
+     * Overrides default toString method with the format description and description consecutively.
      *
-     * @return    date and desc in String
+     * @return    Fields date and desc in String
      */
     public String toString()
     {

@@ -4,18 +4,22 @@ import java.io.*;
 
 
 /**
- * Write a description of class Validate here.
+ * This method is used to validate a filtered price list whether they're under a filtered value or not.
  *
  * @author Satya Ananda Sulistio
- * @version (a version number or a date)
+ * @version 1.0
  */
 public class Validate
 {
-    // instance variables - replace the example below with your own
+    /**
+     * This field is used to store a certain value of x.
+     *
+     * @since 1.0
+     */
     private int x;
 
     /**
-     * Constructor for objects of class Validate
+     * Constructor for objects of class Validate.
      */
     public Validate()
     {
@@ -26,10 +30,10 @@ public class Validate
     /**
      * Adding valid prices to a new array list.
      *
-     * @param  list  An array of Price type containing list of prices
-     * @param value An integer to check whether the given price is valid
-     * @param less A boolean variable to check whether given price in a list is less than the value
-     * @return    An array list containing validated prices
+     * @param  list  an array of Price type containing list of prices
+     * @param value an integer to check whether the given price is valid
+     * @param less a boolean variable to check whether given price in a list is less than the value
+     * @return an array list containing validated prices
      */
     public static ArrayList filter(Price[] list, int value, boolean less){
         ArrayList arrTemp = new ArrayList();

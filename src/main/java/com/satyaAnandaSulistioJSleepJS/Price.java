@@ -1,28 +1,56 @@
 package com.satyaAnandaSulistioJSleepJS;
 
-// Satya Ananda Sulistio 2106705524
-
+/**
+ * This class is utilized to store a room's price and its discount amount.
+ *
+ * @author Satya Ananda Sulistio
+ * @version 1.0
+ */
 public class Price
 {
-    // instance variables
+    /**
+     * This field stores a room's price.
+     *
+     * @since 1.0
+     */
     public double price;
+
+    /**
+     * This field stores a room's discount amount.
+     *
+     * @since 1.0
+     */
     public double discount;
-    // public int discount;
-    // public double rebate;
-    
+
+    /**
+     * Constructor for object Price.
+     * The default discount value is set to 0.
+     *
+     * @param price initializes a room's price
+     */
     public Price(double price){
         this.price = price;
         this.discount = 0;
         //this.rebate = 0;
     }
-    
-    
+
+    /**
+     * Alternative constructor for object Price.
+     *
+     * @param price initializes a room's price
+     * @param discount initializes a room's discount
+     */
     public Price(double price, double discount)
     {
         this.price = price;
         this.discount = discount;
     }
-    
+
+    /**
+     * This method returns the fields value in String.
+     *
+     * @return fields value in String
+     */
     public String toString(){
         return("Price: " + price + " Discount: " + discount);
     }

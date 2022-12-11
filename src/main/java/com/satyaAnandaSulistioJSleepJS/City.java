@@ -2,8 +2,8 @@ package com.satyaAnandaSulistioJSleepJS;
 
 
 /**
- * Enumeration class City - contains enums of well-known cities in Indonesia
- *
+ * This enum contains well-known cities in Indonesia.
+ * The cities include BALI, BANDUNG, SURABAYA, JAKARTA, SEMARANG, MEDAN, BEKASI, LAMPUNG.
  * @author Satya Ananda Sulistio
  * @version 1.0
  */
