@@ -14,7 +14,7 @@ public class Room extends Serializable
     public String address;
     public BedType bedType;
     public City city;
-    public ArrayList<Date> booked;
+    public ArrayList<Date> booked = new ArrayList<Date>();
 
     /**
      * Constructor for objects of Room class
@@ -30,11 +30,10 @@ public class Room extends Serializable
         this.city = city;
         this.address = address;
         this.bedType = bedType;
-        booked = new ArrayList<Date>();
     }
     
     public String toString(){
-        return ("Size: " + size + " Name: " + name + " Facility: " + facility + " Price: " + price + " Address: " + address + " Bed Type: " + bedType + " City: " + city + " id: " + id);
+        return ("Size: " + size + " Name: " + name + " Facility: " + facility + " Price: " + price + " Address: " + address + " Bed Type: " + bedType + " City: " + city + " id: " + id + " booked: " + booked);
     }
     
 

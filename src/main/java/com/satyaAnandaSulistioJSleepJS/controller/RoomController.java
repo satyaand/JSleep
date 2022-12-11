@@ -18,8 +18,8 @@ public class RoomController implements BasicGetController<Room> {
     @GetMapping("/{id}/renter")
     List<Room> getRoomByRenter(
             @PathVariable int id,
-            @RequestParam int page,
-            @RequestParam int pageSize
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int pageSize
     )
     {
         Predicate<Room> pred = obj -> obj.accountId == id;
@@ -42,14 +42,15 @@ public class RoomController implements BasicGetController<Room> {
         if(findAcc.renter != null){
             Room aRoom = new Room(accountId, name, size, new Price(price), facility, city, address, bedType);
             roomTable.add(aRoom);
+            return aRoom;
         }
         return null;
     }
 
     @GetMapping("/getAllRoom")
     public List<Room> getAllRoom(
-            @RequestParam int page,
-            @RequestParam int pageSize
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int pageSize
     ){
         return Algorithm.paginate(getJsonTable(), page, pageSize, Objects::nonNull);
     }

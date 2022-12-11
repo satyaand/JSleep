@@ -7,7 +7,9 @@ package com.satyaAnandaSulistioJSleepJS;
  * @author Satya Ananda Sulistio
  * @version (version number or date here)
  */
-public enum BedType
-{
-    SINGLE, QUEEN, KING, DOUBLE
+public enum BedType {
+    DOUBLE,
+    SINGLE,
+    QUEEN,
+    KING
 }

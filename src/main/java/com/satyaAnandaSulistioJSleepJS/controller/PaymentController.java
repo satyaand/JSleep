@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 @RestController
@@ -26,23 +27,32 @@ public class PaymentController implements BasicGetController<Payment> {
         @RequestParam int roomId,
         @RequestParam String from,
         @RequestParam String to
-    ) throws ParseException {
+    ){
         Predicate<Account> accPred = obj -> obj.id == buyerId;
         Account searchAccCriteria = Algorithm.<Account>find(AccountController.accountTable, accPred);
         Predicate<Room> roomPred = obj1 -> obj1.id == roomId;
         Room searchRoomCriteria = Algorithm.<Room>find(RoomController.roomTable, roomPred);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date fromDate = sdf.parse(from);
-        Date toDate = sdf.parse(to);
-        boolean balanceMet = (searchAccCriteria.balance >= searchRoomCriteria.price.price);
+        Date fromDate;
+        Date toDate;
+        try{
+            fromDate = sdf.parse(from);
+            toDate = sdf.parse(to);
+        } catch (ParseException e){
+            throw new RuntimeException(e);
+        }
+
+        long spentDays = ((toDate.getTime() - fromDate.getTime()) / (1000 * 60 * 60 * 24)) % 365;
+        double chargedAmount = searchRoomCriteria.price.price * (double) spentDays;
+
+        boolean balanceMet = (searchAccCriteria.balance >= chargedAmount);
         if(balanceMet && Payment.availability(fromDate, toDate, searchRoomCriteria)){
             Payment aPayment = new Payment(buyerId, renterId, roomId, fromDate, toDate);
-            searchAccCriteria.balance -= searchRoomCriteria.price.price;
+            searchAccCriteria.balance -= chargedAmount;
             aPayment.status = Invoice.PaymentStatus.WAITING;
-            if(Payment.makeBooking(fromDate, toDate, searchRoomCriteria)){
-                getJsonTable().add(aPayment);
-                return aPayment;
-            }
+            Payment.makeBooking(fromDate, toDate, searchRoomCriteria);
+            getJsonTable().add(aPayment);
+            return aPayment;
         }
         return null;
     }
@@ -67,8 +77,18 @@ public class PaymentController implements BasicGetController<Payment> {
             Account foundAccount = Algorithm.find((new AccountController()).getJsonTable(), predAcc);
             Predicate<Room> predRoom = objRoom -> objRoom.id == searchPayment.getRoomId();
             Room foundRoom = Algorithm.find((new RoomController()).getJsonTable(), predRoom);
+            Calendar start = Calendar.getInstance();
+            start.setTime(searchPayment.from);
+            Calendar end = Calendar.getInstance();
+            end.setTime(searchPayment.to);
+            int spentDays = 0;
+            for(Date date = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), date = start.getTime()){
+                foundRoom.booked.remove(date);
+                spentDays++;
+            }
             searchPayment.status = Invoice.PaymentStatus.FAILED;
-            foundAccount.balance += foundRoom.price.price;
+            foundAccount.balance += (foundRoom.price.price) * spentDays;
+            getJsonTable().remove(searchPayment);
             return true;
         }
         return false;

@@ -7,7 +7,14 @@ package com.satyaAnandaSulistioJSleepJS;
  * @author Satya Ananda Sulistio
  * @version 1.0
  */
-public enum City
-{
-    SURABAYA, DEPOK, LAMPUNG, JAKARTA, BANDUNG, SEMARANG, MEDAN, BEKASI, BALI
+public enum City {
+    BALI,
+    BANDUNG,
+    SURABAYA,
+    JAKARTA,
+    SEMARANG,
+    MEDAN,
+    DEPOK,
+    BEKASI,
+    LAMPUNG
 }
